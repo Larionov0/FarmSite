@@ -5,3 +5,4 @@ from .models import *
 admin.site.register(Barn)
 admin.site.register(Cell)
 admin.site.register(Animal)
+admin.site.register(Trough)

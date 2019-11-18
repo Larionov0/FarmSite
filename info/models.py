@@ -8,10 +8,14 @@ class Barn(models.Model):
         return f"{self.number}"
 
 
+class Trough(models.Model):
+    type_of_food = models.CharField(max_length=100, default="")
+
+
 class Cell(models.Model):
     barn = models.ForeignKey(Barn, default=0, on_delete=models.CASCADE)
     number = models.CharField(max_length=20, default=0)
-    troughmate = models.OneToOneField(Cell, blank=True)  # Сокормушечник
+    trough = models.ForeignKey(Trough, default=0, blank=True, on_delete=models.SET_DEFAULT)
 
     def __str__(self):
         return f"{self.number}"
