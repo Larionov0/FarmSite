@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import *
 
 # Create your views here.
 
 def info(request):
-    lst = []
-    for i in range(100):
-        lst.append(i)
-    return HttpResponse(f"Hello!!! {lst}")
+    context = {}
+    context["count_of_animals"] = Animal.objects.count()
+    context["count_of_cells"] = Cell.objects.count()
+    context["count_of_barns"] = Barn.objects.count()
+    return render(request, "index.html", context=context)
 
 
 def lol(request):

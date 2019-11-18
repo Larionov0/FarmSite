@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title> Info </title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block body %}
+<h1 id="info_text"> Информация про колличество обьектов </h1>
+<table id="table_with_counts">
+    <tr>
+        <td> Сараи: </td> <td> {{ count_of_barns }} </td>
+    </tr>
+    <tr>
+        <td> Клетки:  </td> <td> {{ count_of_cells }} </td>
+    </tr>
+    <tr>
+        <td> Животные:  </td> <td> {{ count_of_animals }} </td>
+    </tr>
+</table>
+{% endblock %}
