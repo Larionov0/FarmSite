@@ -25,3 +25,14 @@ def otkorm(request):
         "otkorm.html",
         context=context
     )
+
+
+def cell_info(request, number_of_cell):
+    context = {}
+    context["cell"] = Cell.objects.get(number=number_of_cell)
+
+    return render(
+        request,
+        "cell_info.html",
+        context=context
+    )

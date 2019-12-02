@@ -73,6 +73,14 @@
             <td> Prirost kh na sutki </td>
             {% endfor %}
         </tr>
+        <tr>
+            <td> Кнопка </td>
+            {% for cell in barn.cell_set.all %}
+            <td>
+            <a href="{% url 'cell_info' cell.number  %}"><button></button></a>
+            </td>
+            {% endfor %}
+        </tr>
     </table>
 </div>
 

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% load static %}
+<title>Cell {{ cell.number }}</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/cell_info.css' %}">
+{% endblock %}
+
+
+{% block body %}
+<h1>Ячейка {{ cell.number }}</h1>
+{% for animal in cell.animal_set.all %}
+<div class="animal">
+<ol>
+    <li>{{animal.name}}</li>
+    <li>{{animal.last_weight}}</li>
+</ol>
+</div>
+{% endfor %}
+{% endblock %}
