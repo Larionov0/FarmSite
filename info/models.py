@@ -53,6 +53,7 @@ class TypeOfFood(models.Model):
 
 class Trough(models.Model):
     type_of_food = models.ForeignKey(TypeOfFood, null=True, blank=True, on_delete=models.SET_NULL)
+    date_of_last_feeding = models.DateField(auto_now=True)
 
 
 class TypeOfCell(models.Model):
@@ -74,15 +75,33 @@ class Cell(models.Model):
     trough = models.ForeignKey(Trough, null=True, blank=True, on_delete=models.SET_NULL)
     capacity = models.IntegerField(default=0)  # Вместимость
     type = models.ForeignKey(TypeOfCell, null=True, blank=True, on_delete=models.SET_NULL)
-    date_of_last_reweighting = models.DateField()
+    date_of_last_reweighting = models.DateField(auto_now=True)
     last_reweighting = models.FloatField(default=0)
-    date_of_last_wash = models.DateField()
+    date_of_last_wash = models.DateField(auto_now=True)
 
     def __str__(self):
         return f"{self.number}"
 
     def count_of_animals(self):
         return self.animal_set.count()
+
+    def average_weight(self):
+        count_of_animals = self.count_of_animals()
+        if count_of_animals == 2:
+            min_weight = min([animal.last_weight for animal in self.animal_set.all()])
+            return min_weight
+        elif count_of_animals == 0:
+            return 0
+
+        summ_of_weights = 0
+        count = 0
+        for animal in self.animal_set.all():
+            summ_of_weights += animal.last_weight
+            count += 1
+
+        return summ_of_weights / count
+
+
 
 
 class Animal(models.Model):
@@ -93,14 +112,17 @@ class Animal(models.Model):
     birthday = models.DateField(auto_now=True)
     weight_of_birth = models.FloatField(default=0)
     lovely_food = models.ForeignKey(TypeOfFood, null=True, blank=True ,on_delete=models.SET_NULL)
-    special_marks = models.CharField(max_length=300, default="")
-    approximately_date_of_delivery = models.DateField()
-    date_of_delivery = models.DateField()
+    special_marks = models.CharField(max_length=300, default="", null=True, blank=True)
+    approximately_date_of_delivery = models.DateField(blank=True, null=True)
+    date_of_delivery = models.DateField(blank=True, null=True)
     last_weight = models.FloatField(default=0)
     date_of_last_reweighting = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f"{self.number} Pig  ({self.cell.number})"
+        if self.cell != None:
+            return f"{self.number} Pig  ({self.cell.number})"
+        else:
+            return f"{self.number} Pig  (No cell)"
 
 
 

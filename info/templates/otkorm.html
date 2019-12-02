@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% load static %}
+<title>Otkorm</title>
+<link rel="stylesheet" type="text/css" href="{% static 'css/otkorm.css' %}">
+{% endblock %}
+
+{% block body %}
+<h1>Сараи:</h1>
+{% for barn in barns %}
+
+<div class="Barn">
+    <h2 class="barn_name">{{ barn.name }}</h2>
+    <table>
+        <tr>
+            <td>Номер</td>
+            {% for cell in barn.cell_set.all %}
+            <td>{{cell.number}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Максимальная вместимость (шт)</td>
+            {% for cell in barn.cell_set.all %}
+            <td>{{cell.capacity}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Колличество (шт)</td>
+            {% for cell in barn.cell_set.all %}
+            <td>{{cell.count_of_animals}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Корм</td>
+            {% for cell in barn.cell_set.all %}
+            <td>{{cell.trough.type_of_food}}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Среднее потребление</td>
+            {% for cell in barn.cell_set.all %}
+            <td>Srednee potreblenie</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Дата последнего кормления</td>
+            {% for cell in barn.cell_set.all %}
+            <td>{{ cell.trough.date_of_last_feeding }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Дата последнего движения</td>
+            {% for cell in barn.cell_set.all %}
+            <td>Last dvizh</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Средний вес</td>
+            {% for cell in barn.cell_set.all %}
+            <td>{{ cell.average_weight }}</td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Ориентировочная дата на продаж</td>
+            {% for cell in barn.cell_set.all %}
+            <td> Data prodazh </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>Прирост кг на сутки</td>
+            {% for cell in barn.cell_set.all %}
+            <td> Prirost kh na sutki </td>
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+
+{% endfor %}
+{% endblock %}

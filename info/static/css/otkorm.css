@@ -1,0 +1,8 @@
+.Barn > table {
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+.Barn > table tr td {
+    border: 1px solid black;
+}

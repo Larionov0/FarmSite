@@ -14,3 +14,14 @@ def info(request):
 
 def lol(request):
     return HttpResponse(f"Kek {__file__}")
+
+
+def otkorm(request):
+    context = {}
+    context["barns"] = Barn.objects.all()
+
+    return render(
+        request,
+        "otkorm.html",
+        context=context
+    )
