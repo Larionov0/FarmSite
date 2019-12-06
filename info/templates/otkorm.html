@@ -10,7 +10,7 @@
 <h1>Сараи:</h1>
 {% for barn in barns %}
 
-<div class="Barn">
+<section class="Barn">
     <h2 class="barn_name">{{ barn.name }}</h2>
     <table>
         <tr>
@@ -77,12 +77,15 @@
             <td> Кнопка </td>
             {% for cell in barn.cell_set.all %}
             <td>
-            <a href="{% url 'cell_info' cell.number  %}"><button></button></a>
+            <a href="{% url 'info:cell_info' cell.number  %}"><button></button></a>
             </td>
             {% endfor %}
         </tr>
     </table>
-</div>
+</section>
+<footer>
+    <a href="{% url 'history:history' %}"><button> К истории перемещений </button></a>
+</footer>
 
 {% endfor %}
 {% endblock %}
