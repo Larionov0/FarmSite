@@ -4,17 +4,29 @@
 {% load static %}
 <title>Cell {{ cell.number }}</title>
 <link rel="stylesheet" type="text/css" href="{% static 'css/cell_info.css' %}">
+<script type="text/javascript" src="{% static 'JS/cell_info.js' %}"></script>
+<script type="text/javascript">
+	url = "{% url 'info:move' cell.number %}";
+	csrf_token = "{{ csrf_token }}";
+</script>
 {% endblock %}
 
 
 {% block body %}
 <h1>Ячейка {{ cell.number }}</h1>
-{% for animal in cell.animal_set.all %}
-<div class="animal">
-<ol>
-    <li>{{animal.name}}</li>
-    <li>{{animal.last_weight}}</li>
-</ol>
-</div>
-{% endfor %}
+<section id="animals">
+	{% for animal in cell.animal_set.all %}
+	<div id="{{ animal.number }}" class="animal" onclick="set_check(this)">
+	<ul>
+	    <li>Имя: {{animal.number}}</li>
+	    <li>Вес: {{animal.last_weight}}</li>
+	    <li class="birthday">Др: {{ animal.birthday }}</li>
+	</ul>
+	</div>
+	{% endfor %}
+</section>
+<section id='control_buttons'>
+	<label id="moving_label"><input type="checkbox" name="moving" onclick="start_moving(this)"> Перемещать </label>
+	<button id="move" onclick='send_animals()'> Переместить </button>
+</section>
 {% endblock %}

@@ -1,7 +1,48 @@
-.animal {
-
+#animals {
+	display: flex;
+	border: 2px solid black;
+	height: 300px
 }
 
-.animal:hoover {
+.animal {
+	border-radius: 10px;
+	margin: 30px;
+	border: 2px solid black;
+	width: 200px;
+	height: 60px;
+}
 
+.animal:hover {
+	height: 90px;
+	width: 220px;
+	margin: 30px 20px 30px 20px;
+}
+
+.birthday {
+	display: none;
+}
+
+.animal:hover .birthday {
+	display: flex;
+}
+
+#moving_label {
+	margin: 30px;
+	font-size: 30px;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 10px;
+	padding: 10px;
+}
+
+#moving_label input {
+	height: 30px;
+	width: 30px
+}
+
+#control_buttons {
+	display: flex;
+}
+
+#move {
+	display: none;
 }

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 
@@ -36,3 +36,8 @@ def cell_info(request, number_of_cell):
         "cell_info.html",
         context=context
     )
+
+
+def move(request, number_of_cell):
+    print("polucheno")
+    return redirect('info:otkorm')
