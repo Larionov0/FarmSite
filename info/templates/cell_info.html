@@ -7,6 +7,7 @@
 <script type="text/javascript" src="{% static 'JS/cell_info.js' %}"></script>
 <script type="text/javascript">
 	url = "{% url 'info:move' cell.number %}";
+	url_to_barn_choosing = "{% url 'info:otkorm' %}"
 	csrf_token = "{{ csrf_token }}";
 </script>
 {% endblock %}

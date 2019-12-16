@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
+from json import dumps
 
 # Create your views here.
 
@@ -40,4 +41,4 @@ def cell_info(request, number_of_cell):
 
 def move(request, number_of_cell):
     print("polucheno")
-    return redirect('info:otkorm')
+    return HttpResponse(dumps({"result":True}))
