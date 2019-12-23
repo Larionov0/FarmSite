@@ -37,8 +37,12 @@ def cell_info(request, number_of_cell):
         cell_from = Cell.objects.get(number=request.session["cell_from_number"])
         cell_to = Cell.objects.get(number=number_of_cell)
 
+        for animal_number in animals:
+            print(animal_number)
+            animal = cell_from.animal_set.get(number=animal_number)
+            cell_to.animal_set.add(animal)
 
-        return HttpResponse(f"{cell_from}  ->  {cell_to}")
+        return redirect('info:otkorm')
 
     else:
         context = {}

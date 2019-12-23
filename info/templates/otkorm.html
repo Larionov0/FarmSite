@@ -85,7 +85,7 @@
         <tr>
             <td> Кнопка </td>
             {% for cell in barn.cell_set.all %}
-            {% if rest %}
+            {% if count_of_animals %}
             <td><a href="{% url 'info:cell_info' cell.number  %}"><button>Вставить</button></a></td>
             {% else %}
             <td><a href="{% url 'info:cell_info' cell.number  %}"><button>Просмотр</button></a></td>

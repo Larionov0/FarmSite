@@ -12,8 +12,10 @@ function set_check(element) {
 		index = checked_animals.indexOf(element.id);
 		if (index == -1){
 			checked_animals.push(element.id);
+			element.style['background-color'] = 'yellow';
 		} else {
 			checked_animals.splice(index, 1);
+			element.style['background-color'] = 'white';
 		}
 		console.log(checked_animals);
 		
