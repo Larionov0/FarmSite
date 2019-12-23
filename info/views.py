@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import *
-from json import dumps
+from json import loads
 
 # Create your views here.
 
@@ -18,6 +18,7 @@ def lol(request):
 
 
 def otkorm(request):
+    request.session.clear()
     context = {}
     context["barns"] = Barn.objects.all()
 
@@ -29,16 +30,36 @@ def otkorm(request):
 
 
 def cell_info(request, number_of_cell):
-    context = {}
-    context["cell"] = Cell.objects.get(number=number_of_cell)
+    animals = request.session.get("checked_animals")
 
-    return render(
-        request,
-        "cell_info.html",
-        context=context
-    )
+    if animals is not None:
+        request.session["checked_animals"] = None
+        cell_from = Cell.objects.get(number=request.session["cell_from_number"])
+        cell_to = Cell.objects.get(number=number_of_cell)
+
+
+        return HttpResponse(f"{cell_from}  ->  {cell_to}")
+
+    else:
+        context = {}
+        context["cell"] = Cell.objects.get(number=number_of_cell)
+
+        return render(
+            request,
+            "cell_info.html",
+            context=context
+        )
 
 
 def move(request, number_of_cell):
-    print(request.POST)
-    return HttpResponse(dumps({"result":True}))
+    animals = loads(request.GET['animals'])
+    request.session['checked_animals'] = animals
+
+    context = {}
+    cell = Cell.objects.get(number=number_of_cell)
+    request.session['cell_from_number'] = cell.number
+    context["barns"] = Barn.objects.all()
+    context["cell_from"] = cell
+    context["count_of_animals"] = len(animals)
+    context["rest"] = cell.count_of_animals() - len(animals)
+    return render(request, 'otkorm.html', context=context)

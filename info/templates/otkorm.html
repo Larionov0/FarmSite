@@ -16,7 +16,11 @@
         <tr>
             <td>Номер</td>
             {% for cell in barn.cell_set.all %}
+            {% if cell.number == cell_from.number %}
+            <td style="background-color:yellow">{{cell.number}}</td>
+            {% else %}
             <td>{{cell.number}}</td>
+            {% endif %}
             {% endfor %}
         </tr>
         <tr>
@@ -28,7 +32,12 @@
         <tr>
             <td>Колличество (шт)</td>
             {% for cell in barn.cell_set.all %}
-            <td>{{cell.count_of_animals}}</td>
+            {% if cell.number == cell_from.number %}
+            <td>{{rest}} (- {{count_of_animals}})</td>
+            {% else %}
+            <td>{{cell.count_of_animals }}</td>
+            {% endif %}
+
             {% endfor %}
         </tr>
         <tr>
@@ -76,9 +85,12 @@
         <tr>
             <td> Кнопка </td>
             {% for cell in barn.cell_set.all %}
-            <td>
-            <a href="{% url 'info:cell_info' cell.number  %}"><button></button></a>
-            </td>
+            {% if rest %}
+            <td><a href="{% url 'info:cell_info' cell.number  %}"><button>Вставить</button></a></td>
+            {% else %}
+            <td><a href="{% url 'info:cell_info' cell.number  %}"><button>Просмотр</button></a></td>
+            {% endif %}
+
             {% endfor %}
         </tr>
     </table>

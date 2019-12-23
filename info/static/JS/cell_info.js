@@ -31,32 +31,8 @@ function start_moving(el) {
 }
 
 function send_animals() {
-	postData(url, checked_animals)
-	  .then(data => {
-	  	if (data.result == true){
-	  		toPage(url_to_barn_choosing, "_self");
-	  	}
-	  }) // JSON-строка полученная после вызова `response.json()`
-	  .catch(error => console.error(error));
+    a = url + "?animals=" + JSON.stringify(checked_animals);
+    toPage(a, "_self");
 }
-
-function postData(url = '', animals = {}) {
-	let data = new FormData();
-	data.append('animals', animals);
-  	data.append('csrfmiddlewaretoken',  csrf_token);
-    return fetch(url, {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        mode: 'cors', // no-cors, cors, *same-origin
-        credentials: 'same-origin', // include, *same-origin, omit
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrf_token,
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(data), // тип данных в body должен соответвовать значению заголовка "Content-Type"
-    })
-    .then(response => response.json()); // парсит JSON ответ в Javascript объект
-}
-
 
 checked_animals = [];
