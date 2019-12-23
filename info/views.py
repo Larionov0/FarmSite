@@ -40,5 +40,5 @@ def cell_info(request, number_of_cell):
 
 
 def move(request, number_of_cell):
-    print("polucheno")
+    print(request.POST)
     return HttpResponse(dumps({"result":True}))
