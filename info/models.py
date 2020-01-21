@@ -125,8 +125,6 @@ class Animal(models.Model):
             return f"{self.number} Pig  (No cell)"
 
 
-
-
 # --------------------------------------------------------
 def autofilling_types():
     list_of_classes = [TypeOfBarn, TypeOfCell, TypeOfFood]

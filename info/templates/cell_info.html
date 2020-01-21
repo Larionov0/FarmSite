@@ -9,6 +9,7 @@
 	url = "{{cell.number}}/move"
 	url_to_barn_choosing = "{% url 'info:otkorm' %}"
 	csrf_token = "{{ csrf_token }}";
+	count_of_all_animals = {{cell.animal_set.all.count}};
 </script>
 {% endblock %}
 
