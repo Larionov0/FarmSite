@@ -55,6 +55,9 @@ class Trough(models.Model):
     type_of_food = models.ForeignKey(TypeOfFood, null=True, blank=True, on_delete=models.SET_NULL)
     date_of_last_feeding = models.DateField(auto_now=True)
 
+    def __str__(self):
+        return f"Trough ({self.id}) ({self.type_of_food})"
+
 
 class TypeOfCell(models.Model):
     list_of_types = ["взрослые", "доращивание", "родилка"]

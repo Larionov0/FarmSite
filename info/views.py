@@ -30,20 +30,38 @@ def otkorm(request):
 
 
 def cell_info(request, number_of_cell):
+    """
+    Два варианта вызова:
+    - либо когда пользователь просто хочет посмотреть информацию про ячейку
+    - либо когда он хочет переместить в ячейку свиней, которых мы сохранили
+    в сессии заранее
+    :param request:
+    :param number_of_cell: какую ячейку посмотреть / в какую закинуть свинюшек
+    """
     animals = request.session.get("checked_animals")
 
+    # когда мы хотим переместить
     if animals is not None:
         request.session["checked_animals"] = None
         cell_from = Cell.objects.get(number=request.session["cell_from_number"])
         cell_to = Cell.objects.get(number=number_of_cell)
+        history = History.objects.all()[0]
+        change = Change.objects.create(total_weight=0, description='auto', type='move')
+        Move.objects.create(change=change, from_cell=cell_from, to_cell=cell_to)
+        history.changes.add(change)
 
+        total_weight = 0
         for animal_number in animals:
-            print(animal_number)
             animal = cell_from.animal_set.get(number=animal_number)
             cell_to.animal_set.add(animal)
+            change.animals.add(animal)
+            total_weight += animal.last_weight
+        change.total_weight = total_weight
+        change.save()
 
         return redirect('info:otkorm')
 
+    # когда мы хотим посмотреть инфо про ячейку
     else:
         context = {}
         context["cell"] = Cell.objects.get(number=number_of_cell)
@@ -56,6 +74,12 @@ def cell_info(request, number_of_cell):
 
 
 def move(request, number_of_cell):
+    """
+
+    :param request:
+    :param number_of_cell:
+    :return:
+    """
     animals = loads(request.GET['animals'])
     request.session['checked_animals'] = animals
 
