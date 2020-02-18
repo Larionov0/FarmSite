@@ -46,9 +46,7 @@ def cell_info(request, number_of_cell):
         cell_from = Cell.objects.get(number=request.session["cell_from_number"])
         cell_to = Cell.objects.get(number=number_of_cell)
         history = History.objects.all()[0]
-        change = Change.objects.create(total_weight=0, description='auto', type='move')
-        Move.objects.create(change=change, from_cell=cell_from, to_cell=cell_to)
-        history.changes.add(change)
+        change = Change.objects.create(history=history, total_weight=0, description='auto', type=ChangeType.get_by_name('Move'), from_cell=cell_from, to_cell=cell_to)
 
         total_weight = 0
         for animal_number in animals:
@@ -91,3 +89,7 @@ def move(request, number_of_cell):
     context["count_of_animals"] = len(animals)
     context["rest"] = cell.count_of_animals() - len(animals)
     return render(request, 'otkorm.html', context=context)
+
+
+def animal_info(request, number_of_animal):
+    pass
