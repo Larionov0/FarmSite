@@ -41,6 +41,10 @@ class Barn(models.Model):
 class TypeOfFood(models.Model):
     list_of_foods = ["Старт", "Финиш", "Гровер", "Лактация", "Предстарт", "Супоросный"]
     type = models.CharField(default=list_of_foods[0], max_length=20)
+
+    @classmethod
+    def get_current_list_of_foods(cls):
+        return [type_.type for type_ in cls.objects.all()]
     
     def __str__(self):
         return self.type
@@ -120,6 +124,10 @@ class Animal(models.Model):
     date_of_delivery = models.DateField(blank=True, null=True)
     last_weight = models.FloatField(default=0)
     date_of_last_reweighting = models.DateField(auto_now=True)
+
+
+    def get_lovely_food(self):
+        return self.lovely_food.type
 
     def __str__(self):
         if self.cell != None:

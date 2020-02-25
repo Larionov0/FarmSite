@@ -22,7 +22,8 @@
 	<ul>
 	    <li>Имя: {{animal.number}}</li>
 	    <li>Вес: {{animal.last_weight}}</li>
-	    <li class="birthday">Др: {{ animal.birthday }}</li>
+	    <li class="disappearing">Др: {{ animal.birthday|date:"d-m-Y" }}</li>
+		<li class="disappearing"><a href="{% url 'info:animal_info' animal.number %}">Редактировать</a></li>
 	</ul>
 	</div>
 	{% endfor %}

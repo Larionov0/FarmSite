@@ -92,4 +92,18 @@ def move(request, number_of_cell):
 
 
 def animal_info(request, number_of_animal):
-    pass
+    animal = Animal.objects.get(number=number_of_animal)
+    foods = TypeOfFood.get_current_list_of_foods()
+    if animal is not None:
+        return render(
+            request,
+            'animal_info.html',
+            context={'animal': animal, 'foods': foods}
+        )
+    else:
+        pass
+
+
+def animal_change(request, number_of_animal):
+    animal = Animal.objects.get(number=number_of_animal)
+    print(request.POST)

@@ -18,11 +18,11 @@
 	margin: 30px 20px 30px 20px;
 }
 
-.birthday {
+.disappearing {
 	display: none;
 }
 
-.animal:hover .birthday {
+.animal:hover .disappearing {
 	display: flex;
 }
 
