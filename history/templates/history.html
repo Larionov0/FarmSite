@@ -2,29 +2,19 @@
 
 {% block title %}
 <title> History </title>
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'CSS' %}">
 {% endblock %}
 
 {% block body %}
 <h1>History</h1>
-<table id="history">
-    <tr>
-        <td>Type</td><td>Date</td><td>Animals</td><td>Total weight</td><td>From cell</td><td>To cell</td><td>Partner</td><td>Description</td>
-    </tr>
-
-    {% for change in changes %}
-    <tr id="{{ change.id }}">
-        <td>{{ change.type.name }}</td>
-        <td>{{ change.date|date:'Y-m-d' }}</td>
-        <td>{% for animal in change.animals.all %}<a href = "{% url 'info:aminal_info' animal.number %}"> {{animal.number}} </a>{% endfor %}</td>
-        <td> {{ change.total_weight }} </td>
-        <td> {{ change.from_cell }} </td>
-        <td> {{ change.to_cell }} </td>
-        <td> {{ change.partner }} </td>
-        <td> {{ change.description }} </td>
-    </tr>
-    {% endfor %}
+<table>
+	<tr>
+		<td>Тип</td><td>Свиньи</td><td>Из</td><td>В</td><td>Общий вес</td><td>дата</td><td>Описание</td><td>Клиет</td><td>Поставщик</td>
+	</tr>
+	{% for change in changes %}
+	<tr>
+		<td>{{ change.type }}</td><td>{{ change.animals }}</td><td>{{ change.cell_from }}</td><td>{{ change.cell_to }}</td><td>{{ change.total_weight }}</td><td>{{ change.cell_from }}</td><td>Описание</td><td>Клиет</td><td>Поставщик</td>
+	</tr>
+	{% endfor %}
 
 </table>
 {% endblock %}

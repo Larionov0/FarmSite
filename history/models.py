@@ -28,5 +28,6 @@ class Change(models.Model):
     partner = models.CharField(max_length=50, default='', blank=True)
     type = models.ForeignKey(ChangeType, null=True, blank=True, on_delete=models.SET_NULL)
 
+
     def __str__(self):
         return f"{self.type.name} ({self.id})"
